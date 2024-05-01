@@ -7,6 +7,7 @@
         <%@include file="WEB-INF/jspf/html-head-libs.jspf"%>
     </head>
     <body style="background-color: grey; color: black">
+        Processos Químicos
         <%@include file="WEB-INF/jspf/navbar.jspf"%>
         <h1>Processos Químicos</h1>
         <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>

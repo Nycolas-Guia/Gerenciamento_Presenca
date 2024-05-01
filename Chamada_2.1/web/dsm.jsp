@@ -7,6 +7,7 @@
         <%@include file="WEB-INF/jspf/html-head-libs.jspf"%>
     </head>
     <body style="background-color: grey; color: black">
+        Desenvolvimento de Software Multiplataforma
         <%@include file="WEB-INF/jspf/navbar.jspf"%>
         <h1>Desenvolvimento de Software Multiplataforma</h1>
         <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
