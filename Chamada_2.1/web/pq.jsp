@@ -8,6 +8,8 @@
     </head>
     <body style="background-color: grey; color: black">
         Processos Químicos
+        Detalhe
+        Detalhe
         <%@include file="WEB-INF/jspf/navbar.jspf"%>
         <h1>Processos Químicos</h1>
         <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
