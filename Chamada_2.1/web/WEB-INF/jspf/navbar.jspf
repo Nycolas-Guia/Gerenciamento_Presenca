@@ -39,8 +39,6 @@
                 <a class="nav-link" href="${pageContext.request.contextPath}/dsm.jsp">DSM 1ºCiclo</a>         
             </div>            
         </div>
-    </div>    
-            
         <%if(username != null){%>
         <form class="logout">
             <span class="navbar-text me-2">
@@ -54,7 +52,7 @@
             <h5 class="text-body-emphasis h4">Faça login para continuar.</h5>
         </div>
         <%}%>
-        
+    </div>   
 </div>
 
 
