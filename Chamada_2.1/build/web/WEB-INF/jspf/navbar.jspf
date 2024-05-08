@@ -1,0 +1,79 @@
+<%@ page pageEncoding="UTF-8" %>
+<link rel="stylesheet" type="text/css" href="style/styleNavbar.css">
+
+<%
+        if(application.getAttribute("users") == null){
+        application.setAttribute("users", new java.util.ArrayList());
+    }
+    
+    java.util.ArrayList<String> users = (java.util.ArrayList) application.getAttribute("users");
+    
+    if(request.getParameter("session-login") != null){
+        session.setAttribute("name", request.getParameter("session-name"));
+        users.add((String) session.getAttribute("name"));
+        response.sendRedirect(request.getRequestURI());
+    }else if(request.getParameter("session-logout") != null){
+        int i = users.indexOf((String) session.getAttribute("name"));
+        session.removeAttribute("name");
+        if(i>=0) users.remove(i);        
+        response.sendRedirect("http://localhost:8080/Chamada_2.1/");
+    }
+    String username = (String) session.getAttribute("name");
+%>
+
+<div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+    <div class="bg-dark p-4">        
+        <%if(username != null){%>
+        <h5 class="text-body-emphasis h4">Suas Turmas</h5>
+        <div class="container">
+            <div class="item" id="ADS">
+                <h6 class="materias">ADS</h6>           
+                <a class="nav-link" href="${pageContext.request.contextPath}/ads.jsp">ADS 5ºCiclo</a>
+            </div>
+            <div class="item" id="PQ">
+                <h6 class="materias">PQ</h6>
+                <a class="nav-link" href="${pageContext.request.contextPath}/pq.jsp">PQ 3ºCiclo</a>         
+            </div>
+            <div class="item" id="DSM">
+                <h6 class="materias">DSM</h6>
+                <a class="nav-link" href="${pageContext.request.contextPath}/dsm.jsp">DSM 1ºCiclo</a>         
+            </div>            
+        </div>
+        <%} else {%>
+        <div>
+            <h5 class="text-body-emphasis h4">Faça login para continuar.</h5>
+        </div>
+        <%}%>
+    </div>
+    <%if (username != null){%>
+    <div class="logout">
+        <form>
+            <span class="navbar-text me-2">
+                Olá, <%=username%>
+            </span>
+            <button class="btn btn-outline-success" type="submit" name="session-logout">Sair</button>
+        </form>  
+    </div>
+    <%}%>
+</div>
+
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+
+        <a class="navbar-house" href="${pageContext.request.contextPath}/index.jsp">
+            <i class="bi bi-house-door"></i>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>           
+        </button>
+    </div>
+</nav>
+
+
+<%if(username == null){%>
+<div class="m-2">
+    <%@include file="login-form.jspf"%>
+</div>
+<%}%>

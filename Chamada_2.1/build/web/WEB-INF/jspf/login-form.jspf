@@ -1,0 +1,22 @@
+<%@ page pageEncoding="UTF-8" %>
+<link rel="stylesheet" type="text/css" href="style/styleForm.css">
+
+<div class="card" style="width: 18rem; background-color: grey;">
+  <div class="card-body">
+    <h5 class="card-title">Formulário de Identificação</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Se identifique aqui.</h6>
+    <form>
+        <div style="margin-bottom: 1rem">
+            <label for="formName" class="form-label">Nome</label>
+            <input style="background-color: #8c8c8c" type="text" class="form-control" id="formName" name="session-name">
+            <hr/>
+            <label for="formName" class="form-label">Senha</label>
+            <input style="background-color: #8c8c8c" type="text" class="form-control" id="formSenha" name="session-senha"><!--required-->
+            
+            
+            <br>
+            <input type="submit" name="session-login" class="btn btn-primary" />
+        </div> 
+    </form>
+  </div>
+</div>
