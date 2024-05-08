@@ -1,0 +1,13 @@
+.teste {    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 18rem;  
+    background-color: grey;
+    color: rgba(0, 0, 41, 0.03);
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.175);
+    border-radius: 0.375rem;
+}
