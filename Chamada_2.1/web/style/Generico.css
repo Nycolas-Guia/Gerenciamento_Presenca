@@ -2,7 +2,7 @@ body {
     background-color: gray;   
 }
 h1 {
-    margin: .5rem;
+    text-align: center;
     color: #FF0000;
 }
 h2 {
