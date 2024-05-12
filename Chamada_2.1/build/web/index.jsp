@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home Page</title>
+        <title>Página Inicial</title>
         <%@include file="WEB-INF/jspf/html-head-libs.jspf"%>
         <link rel="stylesheet" type="text/css" href="style/Generico.css">
     </head>
@@ -11,7 +11,8 @@
      
         <%@include file="WEB-INF/jspf/navbar.jspf"%>
         <%if(username != null){%>
-        <h1>Página Inicial</h1>                    
+        <h1>Página Inicial</h1> 
+        <h2> Olá, professor!</h2>
         <%}%>
         <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
     </body>

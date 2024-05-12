@@ -1,7 +1,11 @@
 body {
-    background-color: gray;
-    color: black;
+    background-color: gray;   
 }
 h1 {
     margin: .5rem;
+    color: #FF0000;
+}
+h2 {
+    margin: .5rem;
+    color: #ff0066;
 }
