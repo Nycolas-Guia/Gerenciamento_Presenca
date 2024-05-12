@@ -5,11 +5,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home Page</title>
         <%@include file="WEB-INF/jspf/html-head-libs.jspf"%>
+        <link rel="stylesheet" type="text/css" href="style/Generico.css">
     </head>
-    <body style="background-color: grey; color: black">
+    <body>
+     
         <%@include file="WEB-INF/jspf/navbar.jspf"%>
         <%if(username != null){%>
-        <h1 style="margin: .5rem">Página Inicial</h1>                    
+        <h1>Página Inicial</h1>                    
         <%}%>
         <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
     </body>
