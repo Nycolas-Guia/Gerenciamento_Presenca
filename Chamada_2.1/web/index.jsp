@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página Inicial</title>
         <%@include file="WEB-INF/jspf/html-head-libs.jspf"%>
-        <link rel="stylesheet" type="text/css" href="style/Generico.css">
+        <link rel="stylesheet" href="style/Generico.css">
     </head>
     <body>
      
