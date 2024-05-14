@@ -10,14 +10,14 @@ public class User {
     private long rowId;
     private String nome;
     private String login;
-    private String role; //SECR || CORD || PROF || ALUN
+    private String cargo; //SECR || CORD || PROF || ALUN
     private String senhaHash;
 
     public static String getCreateStatement() {
         return "CREATE TABLE IF NOT EXISTS user("
                 + "login VARCHAR(50) UNIQUE NOT NULL,"
                 + "nome VARCHAR(100) NOT NULL,"
-                + "role VARCHAR (4) NOT NULL,"
+                + "cargo VARCHAR (4) NOT NULL,"
                 + "senha_hash VARCHAR NOT NULL"
                 + ")";
         
@@ -33,9 +33,9 @@ public class User {
             long rowId = rs.getLong("rowid");
             String login = rs.getString("login");
             String nome = rs.getString("nome");
-            String role = rs.getString("role");
+            String cargo = rs.getString("cargo");
             String senhaHash = rs.getString("senha_hash");
-            list.add(new User(rowId, login, nome, role, senhaHash));
+            list.add(new User(rowId, login, nome, cargo, senhaHash));
         }
         con.close();
         stmt.close();
@@ -54,9 +54,9 @@ public class User {
         if (rs.next()) {
             long rowId = rs.getLong("rowid");
             String nome = rs.getString("nome");
-            String role = rs.getString("role");
+            String cargo = rs.getString("cargo");
             String senhaHash = rs.getString("senha_hash");
-            user = new User(rowId, login, nome, role, senhaHash);
+            user = new User(rowId, login, nome, cargo, senhaHash);
         }
         rs.close();
         stmt.close();
@@ -64,26 +64,26 @@ public class User {
         return user;
     }
 
-    public static void insertUser(String login, String nome, String role, String senha) throws Exception {
+    public static void insertUser(String login, String nome, String cargo, String senha) throws Exception {
         Connection con = AppListener.getConnection();
-        String sql = "INSERT INTO users(login, nome, role, senha_hash) "
+        String sql = "INSERT INTO users(login, nome, cargo, senha_hash) "
                 + "VALUES(?, ?, ?, ?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, login);
         stmt.setString(2, nome);
-        stmt.setString(3, role);
+        stmt.setString(3, cargo);
         stmt.setString(4, AppListener.getMd5Hash(senha));
         stmt.execute();
         stmt.close();
         con.close();
     }
 
-    public static void updateUser(String login, String nome, String role, String senha) throws Exception {
+    public static void updateUser(String login, String nome, String cargo, String senha) throws Exception {
         Connection con = AppListener.getConnection();
-        String sql = "UPDATE users SET nome=?, role=?, senha_hash=? WHERE login=?";
+        String sql = "UPDATE users SET nome=?, cargo=?, senha_hash=? WHERE login=?";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, nome);
-        stmt.setString(2, role);
+        stmt.setString(2, cargo);
         stmt.setString(3, AppListener.getMd5Hash(senha));
         stmt.setString(4, login);
         stmt.execute();
@@ -101,11 +101,11 @@ public class User {
         con.close();
     }
 
-    public User(long rowId,String login, String nome, String role, String senhaHash) {
+    public User(long rowId,String login, String nome, String cargo, String senhaHash) {
         this.rowId = rowId;
         this.login = login;
         this.nome = nome;
-        this.role = role;
+        this.cargo = cargo;
         this.senhaHash = senhaHash;
     }
 
@@ -133,19 +133,19 @@ public class User {
         this.login = login;
     }
 
-    public String getRole() {
-        return role;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
-    public String getPasswordHash() {
+    public String getSenhaHash() {
         return senhaHash;
     }
 
-    public void setPasswordHash(String senhaHash) {
+    public void setSenhaHash(String senhaHash) {
         this.senhaHash = senhaHash;
     }
 
