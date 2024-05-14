@@ -27,26 +27,26 @@ public class AppListener implements ServletContextListener{
         try{
             Connection c = AppListener.getConnection();
             Statement s = c.createStatement();
-            initializeLog += new Date() + ": Initializing database creation;";
-            initializeLog += "Creating users table if not exists...";            
+            initializeLog += new Date() + ": Iniciando criação do banco de dados;";
+            initializeLog += "Criando a tabela users caso não exista...";            
             s.execute(User.getCreateStatement());
             if(User.getUsers().isEmpty()){
-                initializeLog += "Adding default users...";
+                initializeLog += "Adicionando usuários padrão...";
                 User.insertUser("Admin", "administrador", "ADMIN", "1234");
-                initializeLog += "Admin added; ";
+                initializeLog += "Admin adicionado; ";
             }
-            initializeLog += "Creating courses table if not exists...";
+            initializeLog += "Criando a tabela courses caso não exista...";
             s.execute(Course.getCreateStatement());            
             if(Course.getCourses().isEmpty()){
-                initializeLog += "Adding default courses...";
+                initializeLog += "Adicionando cursos padrão...";
                 Course.insertCourse("ADS", "Análise e Desenvolvimento de Sistemas", "Curso de Análise e Desenvolvimento de Sistemas. Voltado para análise e BackEnd.");
                 Course.insertCourse("PQ", "Processos Químicos", "Curso de Química. Voltado para quem quer atuar na indústria petroquímica, eletroquímicaindústria petroquímica, eletroquímica, farmacêutica e de produção de insumos.");
                 Course.insertCourse("COMEX", "Comércio Exterior", "Curso de Comércio Exterior. Voltado para quem gerencia operações de comércio exterior, tais como: transações cambiais, despacho e legislação aduaneira, exportação, importação, contratos e logística internacional.");
                 Course.insertCourse("GE", "Gestão Empresarial", "Curso de Gestão de Empresas. Voltado para quem quer atuar como gestor em empresas de pequeno à grande porte ou seu próprio negócio.");
                 Course.insertCourse("DSM", "Desenvolvimento de Software Multiplataforma", "Curso de Desenvolvimento. Voltado para o desenvolvimento de novas tecnologias, como IOT, Mobile, Inteligência Artificial, Nuvem, entre outros;.");
-                initializeLog += "Courses added; ";
+                initializeLog += "Cursos adicionados; ";
             }
-            initializeLog += "done!\n";
+            initializeLog += "Feito!\n";
             s.close();
             c.close();
             
