@@ -8,19 +8,21 @@ import static web.AppListener.initializeLog;
 public class User {
 
     private long rowId;
-    private String name;
+    private String nome;
     private String login;
     private String role; //SECR || CORD || PROF || ALUN
-    private String passwordHash;
+    private String senhaHash;
 
     public static String getCreateStatement() {
-        return "CREATE TABLE IF NOT EXISTS users("
+        return "CREATE TABLE IF NOT EXISTS user("
                 + "login VARCHAR(50) UNIQUE NOT NULL,"
-                + "name VARCHAR(100) NOT NULL,"
+                + "nome VARCHAR(100) NOT NULL,"
                 + "role VARCHAR (4) NOT NULL,"
-                + "password_hash VARCHAR NOT NULL"
+                + "senha_hash VARCHAR NOT NULL"
                 + ")";
+        
     }
+    
 
     public static ArrayList<User> getUsers() throws Exception {
         ArrayList<User> list = new ArrayList<>();
@@ -30,10 +32,10 @@ public class User {
         while (rs.next()) {
             long rowId = rs.getLong("rowid");
             String login = rs.getString("login");
-            String name = rs.getString("name");
+            String nome = rs.getString("nome");
             String role = rs.getString("role");
-            String passwordHash = rs.getString("password_hash");
-            list.add(new User(rowId, login, name, role, passwordHash));
+            String senhaHash = rs.getString("senha_hash");
+            list.add(new User(rowId, login, nome, role, senhaHash));
         }
         con.close();
         stmt.close();
@@ -41,20 +43,20 @@ public class User {
         return list;
     }
 
-    public static User getUser(String login, String password) throws Exception {
+    public static User getUser(String login, String senha) throws Exception {
         User user = null;
         Connection con = AppListener.getConnection();
-        String sql = "SELECT rowid, * from users WHERE login=? AND password_hash=?";
+        String sql = "SELECT rowid, * from users WHERE login=? AND senha_hash=?";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, login);
-        stmt.setString(2, AppListener.getMd5Hash(password));
+        stmt.setString(2, AppListener.getMd5Hash(senha));
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             long rowId = rs.getLong("rowid");
-            String name = rs.getString("name");
+            String nome = rs.getString("nome");
             String role = rs.getString("role");
-            String passwordHash = rs.getString("password_hash");
-            user = new User(rowId, login, name, role, passwordHash);
+            String senhaHash = rs.getString("senha_hash");
+            user = new User(rowId, login, nome, role, senhaHash);
         }
         rs.close();
         stmt.close();
@@ -62,27 +64,27 @@ public class User {
         return user;
     }
 
-    public static void insertUser(String login, String name, String role, String password) throws Exception {
+    public static void insertUser(String login, String nome, String role, String senha) throws Exception {
         Connection con = AppListener.getConnection();
-        String sql = "INSERT INTO users(login, name, role, password_hash) "
+        String sql = "INSERT INTO users(login, nome, role, senha_hash) "
                 + "VALUES(?, ?, ?, ?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, login);
-        stmt.setString(2, name);
+        stmt.setString(2, nome);
         stmt.setString(3, role);
-        stmt.setString(4, AppListener.getMd5Hash(password));
+        stmt.setString(4, AppListener.getMd5Hash(senha));
         stmt.execute();
         stmt.close();
         con.close();
     }
 
-    public static void updateUser(String login, String name, String role, String password) throws Exception {
+    public static void updateUser(String login, String nome, String role, String senha) throws Exception {
         Connection con = AppListener.getConnection();
-        String sql = "UPDATE users SET name=?, role=?, password_hash=? WHERE login=?";
+        String sql = "UPDATE users SET nome=?, role=?, senha_hash=? WHERE login=?";
         PreparedStatement stmt = con.prepareStatement(sql);
-        stmt.setString(1, name);
+        stmt.setString(1, nome);
         stmt.setString(2, role);
-        stmt.setString(3, AppListener.getMd5Hash(password));
+        stmt.setString(3, AppListener.getMd5Hash(senha));
         stmt.setString(4, login);
         stmt.execute();
         stmt.close();
@@ -99,12 +101,12 @@ public class User {
         con.close();
     }
 
-    public User(long rowId,String login, String name, String role, String passwordHash) {
+    public User(long rowId,String login, String nome, String role, String senhaHash) {
         this.rowId = rowId;
         this.login = login;
-        this.name = name;
+        this.nome = nome;
         this.role = role;
-        this.passwordHash = passwordHash;
+        this.senhaHash = senhaHash;
     }
 
     public long getRowId() {
@@ -115,12 +117,12 @@ public class User {
         this.rowId = rowId;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getLogin() {
@@ -140,11 +142,11 @@ public class User {
     }
 
     public String getPasswordHash() {
-        return passwordHash;
+        return senhaHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPasswordHash(String senhaHash) {
+        this.senhaHash = senhaHash;
     }
 
 }
