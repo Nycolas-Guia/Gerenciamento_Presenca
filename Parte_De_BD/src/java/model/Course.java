@@ -7,13 +7,13 @@ import web.AppListener;
 public class Course {
     private long rowId;
     private String abb;
-    private String name;
+    private String nome;
     private String desc;
 
     public static String getCreateStatement(){
         return "CREATE TABLE IF NOT EXISTS courses("
                 + "abb VARCHAR(5) UNIQUE NOT NULL,"
-                + "name VARCHAR(50) NOT NULL,"
+                + "nome VARCHAR(50) NOT NULL,"
                 + "desc VARCHAR(100)"
                 + ")";
     }        
@@ -26,9 +26,9 @@ public class Course {
         while (rs.next()) {
             long rowId = rs.getLong("rowid");
             String abb = rs.getString("abb");
-            String name = rs.getString("name");
+            String nome = rs.getString("nome");
             String desc = rs.getString("desc");            
-            list.add(new Course(rowId, abb, name, desc));
+            list.add(new Course(rowId, abb, nome, desc));
         }
         con.close();
         stmt.close();
@@ -36,23 +36,23 @@ public class Course {
         return list;
     }
  
-    public static void insertCourse(String abb, String name, String desc) throws Exception {
+    public static void insertCourse(String abb, String nome, String desc) throws Exception {
         Connection con = AppListener.getConnection();
-        String sql = "INSERT INTO courses(abb, name, desc)"
+        String sql = "INSERT INTO courses(abb, nome, desc)"
                 + "VALUES(?, ?, ?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, abb);
-        stmt.setString(2, name);
+        stmt.setString(2, nome);
         stmt.setString(3, desc);        
         stmt.execute();
         stmt.close();
         con.close();
     }
 
-    public Course(long rowId, String abb, String name, String desc) {
+    public Course(long rowId, String abb, String nome, String desc) {
         this.rowId = rowId;
         this.abb = abb;
-        this.name = name;
+        this.nome = nome;
         this.desc = desc;
     }
 
@@ -64,12 +64,12 @@ public class Course {
         this.abb = abb;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDesc() {
