@@ -36,11 +36,11 @@ public class ApiServlet extends HttpServlet {
             } else if (request.getRequestURI().endsWith("/api/call")) {
                 processCall(file, request, response);
             } else {
-                response.sendError(400, "Invalid URL");
-                file.put("error", "Invalid URL");
+                response.sendError(400, "URL Inválida");
+                file.put("erro", "URL Inválida");
             }
         } catch (Exception ex) {
-            response.sendError(500, "Internal error: " + ex.getLocalizedMessage());
+            response.sendError(500, "Erro interno: " + ex.getLocalizedMessage());
         }
         response.getWriter().print(file.toString());
 
@@ -72,7 +72,7 @@ public class ApiServlet extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Breve descrição";
     }
 
     private void processSession(JSONObject file, HttpServletRequest request, HttpServletResponse response)
@@ -80,17 +80,17 @@ public class ApiServlet extends HttpServlet {
         if (request.getMethod().toLowerCase().equals("put")) {
             JSONObject body = getJSONBody(request.getReader());
             String login = body.getString("login");
-            String password = body.getString("password");
-            User u = User.getUser(login, password);
+            String senha = body.getString("senha");
+            User u = User.getUser(login, senha);
             if (u == null) {
-                response.sendError(403, "Login or password incorrects,");
+                response.sendError(403, "Login or senha incorrects,");
             } else {
                 request.getSession().setAttribute("user", u);
                 file.put("id", u.getRowId());
                 file.put("login", u.getLogin());
-                file.put("name", u.getName());
-                file.put("role", u.getRole());
-                file.put("passwordHash", u.getPasswordHash());
+                file.put("nome", u.getNome());
+                file.put("cargo", u.getCargo());
+                file.put("senhaHash", u.getSenhaHash());
                 file.put("message", "Logged in");
             }
 
@@ -105,9 +105,9 @@ public class ApiServlet extends HttpServlet {
                 User u = (User) request.getSession().getAttribute("user");
                 file.put("id", u.getRowId());
                 file.put("login", u.getLogin());
-                file.put("name", u.getName());
-                file.put("role", u.getRole());
-                file.put("passwordHash", u.getPasswordHash());
+                file.put("nome", u.getNome());
+                file.put("cargo", u.getCargo());
+                file.put("senhaHash", u.getSenhaHash());
             }
         } else {
             response.sendError(405, "Method not allowed");
@@ -120,7 +120,7 @@ public class ApiServlet extends HttpServlet {
         if(request.getSession().getAttribute("user") == null){ 
             response.sendError(401, "Unauthorized: no session");
         
-        }else if(!((User)request.getSession().getAttribute("user")).getRole().equals("ADMIN")){
+        }else if(!((User)request.getSession().getAttribute("user")).getCargo().equals("ADMIN")){
             response.sendError(401, "Unauthorized: Only admin can manage users");
             
         } else if(request.getMethod().toLowerCase().equals("get")){
@@ -129,29 +129,29 @@ public class ApiServlet extends HttpServlet {
         } else if(request.getMethod().toLowerCase().equals("post")){
             JSONObject body = getJSONBody(request.getReader());
             String login = body.getString("login");
-            String name = body.getString("name");
-            String role = body.getString("role");
-            String password = body.getString("password");
-            User.insertUser(login, name, role, password);
+            String nome = body.getString("nome");
+            String cargo = body.getString("cargo");
+            String senha = body.getString("senha");
+            User.insertUser(login, nome, cargo, senha);
             file.put("message", "User posted");
         
         } else if(request.getMethod().toLowerCase().equals("put")){
             JSONObject body = getJSONBody(request.getReader());
             String login = body.getString("login");
-            String name = body.getString("name");
-            String role = body.getString("role");
-            String password = body.getString("password");
-            User.updateUser(login, name, role, password);
-            file.put("message", "User Updated");
+            String nome = body.getString("nome");
+            String cargo = body.getString("cargo");
+            String senha = body.getString("senha");
+            User.updateUser(login, nome, cargo, senha);
+            file.put("message", "Usuário atualizado");
             
         
         } else if(request.getMethod().toLowerCase().equals("delete")){
             Long id = Long.parseLong(request.getParameter("id"));
             User.deleteUser(id);
-            file.put("message", "User deleted");
+            file.put("message", "Usuário deletado");
 
         } else{
-            response.sendError(405, "Method not allowed");
+            response.sendError(405, "Método não permitido");
         
         }
     }
@@ -159,7 +159,7 @@ public class ApiServlet extends HttpServlet {
     private void processCourse(JSONObject file, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         if(request.getSession().getAttribute("user") == null){ 
-            response.sendError(401, "Unauthorized: no session");
+            response.sendError(401, "Não autorizado: sem sessão");
             
         }else if(request.getMethod().toLowerCase().equals("get")){
             file.put("list", new JSONArray(Course.getCourses()));
