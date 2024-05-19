@@ -1,17 +1,23 @@
 <%-- 
     Document   : teste
-    Created on : 18 de mai. de 2024, 21:48:57
-    Author     : heito
+    Created on : 14 de mai. de 2024, 14:37:13
+    Author     : Fatec
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Testes equivalentes</title>
+        <%@include file="WEB-INF/jspf/html-head-libs.jspf"%>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <%@include file="WEB-INF/jspf/teste-navbar.jspf"%>
+        <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
+
+<h3><a href='index.jsp'> Voltar</a></h3>
     </body>
 </html>
