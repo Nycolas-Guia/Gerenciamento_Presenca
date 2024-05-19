@@ -6,11 +6,11 @@
         <title>Home Page</title>
         <%@include file="WEB-INF/jspf/html-head-libs.jspf"%>
     </head>
-    <body style="background-color: grey; color: black">
-        <%@include file="WEB-INF/jspf/navbar.jspf"%>        
+    <body>
+        <%@include file="WEB-INF/jspf/navbar.jspf"%>  
+        <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
         <div class="m-2">
             <h1>Página Inicial</h1>            
         </div>
-        <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
     </body>
 </html>
