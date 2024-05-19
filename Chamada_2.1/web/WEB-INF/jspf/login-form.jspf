@@ -1,12 +1,12 @@
 <%@ page pageEncoding="UTF-8" %>
 <link rel="stylesheet" type="text/css" href="style/styleForm.css">
-
-<div class="card" style="width: 18rem; background-color: grey;">
+<center>
+<div class="card" style="width: 20rem; background-color: grey;">
   <div class="card-body">
     <h5 class="card-title">Formulário de Identificação</h5>
     <h6 class="card-subtitle mb-2 text-body-secondary">Se identifique aqui.</h6>
     <form>
-        <div style="margin-bottom: 1rem">
+        <div style="margin-bottom: 5rem">
             <label for="formName" class="form-label">Nome</label>
             <input style="background-color: #8c8c8c" type="text" class="form-control" id="formName" name="session-name">
             <hr/>
@@ -20,3 +20,4 @@
     </form>
   </div>
 </div>
+</center>
