@@ -3,7 +3,7 @@
     justify-content: space-between;
 }
 .navbar-house{
-    color: #9b9d9e;
+   color: var(--bs-white);
     font-size: 160%;
     padding-right: 14.3px;
     padding-left: 14.3px;

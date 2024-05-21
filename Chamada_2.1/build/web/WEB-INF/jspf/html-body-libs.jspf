@@ -1,2 +1,2 @@
 <%@ page pageEncoding="UTF-8" %>
-<body class="p-3 mb-2 bg-dark-subtle text-dark-emphasis">
+<body class="p-3 mb-2 text-dark-emphasis bg-danger-subtle">
