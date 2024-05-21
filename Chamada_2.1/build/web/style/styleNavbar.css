@@ -13,11 +13,9 @@
 }
 .item{
     color: grey;
-    justify-items: stretch;
 }
 .materias{
-    color: #FFFFF0;;
-    justify-items: stretch;
+     color: var(--bs-blue);
 }
 .logout{
     display: flex;
@@ -29,8 +27,6 @@
 h6{
     color: white;
 }
-.escuro{
+.lua{
             margin-right: -90%;
-            height: 30px;
-            text-align: right;
 }
