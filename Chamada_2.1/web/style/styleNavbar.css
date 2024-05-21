@@ -12,10 +12,10 @@
     border-radius: 0.375rem;
 }
 .item{
-    color: grey;
+    color: var(--bs-white);
 }
 .materias{
-     color: var(--bs-blue);
+     color: var(--bs-white);
 }
 .logout{
     display: flex;
@@ -27,6 +27,6 @@
 h6{
     color: white;
 }
-.lua{
+.lampada{
             margin-right: -90%;
 }
