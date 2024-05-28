@@ -8,7 +8,6 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/navbar.jspf"%>
-        <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
         <%if(username != null){%>
         <center><h1>Página Inicial</h1></center> 
         <h2> Olá, professor!</h2>
