@@ -8,10 +8,10 @@
                 <form>
                     <div class="row">
                         <label for="formName" class="col-sm-2 col-form-label">Nome:</label>
-                        <input type="text" class="form-control border-danger" id="formName" name="session-name">
+                        <input type="text" class="form-control border-danger" id="formName" name="session-name" maxlength="50" required>
                         <hr/>
                         <label for="formName" class="col-sm-2 col-form-label">Senha:</label>
-                        <input type="text" class="form-control border-danger" id="formSenha" name="session-senha">                        
+                        <input type="text" class="form-control border-danger" id="formSenha" name="session-senha" maxlength="30" required>                        
                         <hr/>
                         <input type="submit" name="session-login" class="btn btn-primary" />
                     </div> 
