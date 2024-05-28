@@ -8,6 +8,7 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/navbar.jspf"%>     
+        <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
         <div class="m-2">
             <h1>Página Inicial</h1>
             <h3>Bem vindo, aluno!</h3>
