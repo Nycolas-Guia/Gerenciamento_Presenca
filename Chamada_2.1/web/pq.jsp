@@ -12,5 +12,6 @@
         <%if(username != null){%>
         <h1>Processos Químicos</h1>
         <%}%>
+        <h3><a href='index.jsp'> Página Inicial</a></h3>
     </body>
 </html>

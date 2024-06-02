@@ -12,5 +12,6 @@
         <%if(username != null){%>
         <h1>Análise e Desenvolvimento de Sistemas</h1>
         <%}%>
+        <h3><a href='index.jsp'> Página Inicial</a></h3>
     </body>
 </html>
