@@ -28,22 +28,29 @@ public class AppListener implements ServletContextListener{
             Connection c = AppListener.getConnection();
             Statement s = c.createStatement();
             initializeLog += new Date() + ": Iniciando criação do banco de dados;";
-            initializeLog += "Criando a tabela users caso não exista...";            
-            s.execute(User.getCreateStatement());
-            if(User.getUsers().isEmpty()){
-                initializeLog += "Adicionando usuários padrão...";
-                User.insertUser("Admin", "administrador", "ADMIN", "1234");
-                initializeLog += "Admin adicionado; ";
+            initializeLog += "Criando a tabela ALUNO caso não exista...";            
+            s.execute(Aluno.getCreateStatement());
+            if(Aluno.getAluno().isEmpty()){
+                initializeLog += "Adicionando aluno padrão...";
+                Aluno.inserirAluno(0000000000001, "Gustavo", "ADS", '1');
+                initializeLog += "Conta criada; ";
             }
-            initializeLog += "Criando a tabela courses caso não exista...";
-            s.execute(Course.getCreateStatement());            
-            if(Course.getCourses().isEmpty()){
+            initializeLog += "Criando a tabela USUARIO caso não exista...";            
+            s.execute(Usuario.getCreateStatement());
+            if(Usuario.getUsuario().isEmpty()){
+                initializeLog += "Adicionando usuário padrão...";
+                Usuario.inserirUsuario("Gustavo", "1234");
+                initializeLog += "Conta criada; ";
+            }
+            initializeLog += "Criando a tabela CURSO caso não exista...";
+            s.execute(Curso.getCreateStatement());            
+            if(Curso.getCurso().isEmpty()){
                 initializeLog += "Adicionando cursos padrão...";
-                Course.insertCourse("ADS", "Análise e Desenvolvimento de Sistemas", "Curso de Análise e Desenvolvimento de Sistemas. Voltado para análise e BackEnd.");
-                Course.insertCourse("PQ", "Processos Químicos", "Curso de Química. Voltado para quem quer atuar na indústria petroquímica, eletroquímicaindústria petroquímica, eletroquímica, farmacêutica e de produção de insumos.");
-                Course.insertCourse("COMEX", "Comércio Exterior", "Curso de Comércio Exterior. Voltado para quem gerencia operações de comércio exterior, tais como: transações cambiais, despacho e legislação aduaneira, exportação, importação, contratos e logística internacional.");
-                Course.insertCourse("GE", "Gestão Empresarial", "Curso de Gestão de Empresas. Voltado para quem quer atuar como gestor em empresas de pequeno à grande porte ou seu próprio negócio.");
-                Course.insertCourse("DSM", "Desenvolvimento de Software Multiplataforma", "Curso de Desenvolvimento. Voltado para o desenvolvimento de novas tecnologias, como IOT, Mobile, Inteligência Artificial, Nuvem, entre outros;.");
+                Curso.insertCurso("ADS", "Análise e Desenvolvimento de Sistemas", "Curso de Análise e Desenvolvimento de Sistemas. Voltado para análise e BackEnd.");
+                Curso.insertCurso("PQ", "Processos Químicos", "Curso de Química. Voltado para quem quer atuar na indústria petroquímica, eletroquímicaindústria petroquímica, eletroquímica, farmacêutica e de produção de insumos.");
+                Curso.insertCurso("COMEX", "Comércio Exterior", "Curso de Comércio Exterior. Voltado para quem gerencia operações de comércio exterior, tais como: transações cambiais, despacho e legislação aduaneira, exportação, importação, contratos e logística internacional.");
+                Curso.insertCurso("GE", "Gestão Empresarial", "Curso de Gestão de Empresas. Voltado para quem quer atuar como gestor em empresas de pequeno à grande porte ou seu próprio negócio.");
+                Curso.insertCurso("DSM", "Desenvolvimento de Software Multiplataforma", "Curso de Desenvolvimento. Voltado para o desenvolvimento de novas tecnologias, como IOT, Mobile, Inteligência Artificial, Nuvem, entre outros;.");
                 initializeLog += "Cursos adicionados; ";
             }
             initializeLog += "Feito!\n";

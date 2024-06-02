@@ -15,7 +15,7 @@ public class Aluno {
     
 
     public static String getCreateStatement() {
-        return "CREATE TABLE IF NOT EXISTS aluno("
+        return "CREATE TABLE IF NOT EXISTS ALUNO("
                 + "id_ra NUMERIC(13) UNIQUE NOT NULL,"
                 + "nm_aluno VARCHAR(50) NOT NULL,"
                 + "sg_curso VARCHAR(5) NOT NULL"
@@ -23,18 +23,17 @@ public class Aluno {
                 + ")";      
     }
     
-
     public static ArrayList<Aluno> getAluno() throws Exception {
         ArrayList<Aluno> lista = new ArrayList<>();
         Connection con = AppListener.getConnection();
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT rowid, * FROM aluno");
+        ResultSet rs = stmt.executeQuery("SELECT rowid, * FROM ALUNO");
         while (rs.next()) {
             long rowId = rs.getLong("rowid");
             int RA = rs.getInt("id_ra");
             String nome = rs.getString("nm_aluno");
             String curso = rs.getString("sg_curso");
-            int semestre = rs.getInt("qt_semestre");
+            char semestre = rs.getString("qt_semestre").charAt(0);
             lista.add(new Aluno(rowId, RA, nome, curso, semestre));
         }
         con.close();
@@ -42,11 +41,10 @@ public class Aluno {
         rs.close();
         return lista;
     }
-
-    
-    public static void inserirAluno(int RA, String nome, String curso, char semestre) throws Exception {
+        
+        public static void inserirAluno(int RA, String nome, String curso, char semestre) throws Exception {
         Connection con = AppListener.getConnection();
-        String sql = "INSERT INTO usuario(id_ra, nm_aluno, sg_curso, qt_semestre) "
+        String sql = "INSERT INTO ALUNO(id_ra, nm_aluno, sg_curso, qt_semestre) "
                 + "VALUES(?, ?, ?, ?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, RA);
@@ -57,8 +55,7 @@ public class Aluno {
         stmt.close();
         con.close();
     }
-
-    public static void updateAluno(int RA, String nome, String curso, char semestre) throws Exception {
+        public static void updateAluno(int RA, String nome, String curso, char semestre) throws Exception {
         Connection con = AppListener.getConnection();
         String sql = "UPDATE usuario SET nm_aluno=?, sg_curso=?, qt_semestre=? WHERE id_ra=?";
         PreparedStatement stmt = con.prepareStatement(sql);
@@ -71,7 +68,7 @@ public class Aluno {
         con.close();
     }
     
-    public static void deleteUser(int RA) throws Exception{
+    public static void deleteUsuario(int RA) throws Exception{
         Connection con = AppListener.getConnection();
         String sql = "DELETE FROM users WHERE id_ra = ?";
         PreparedStatement stmt = con.prepareStatement(sql);
@@ -80,7 +77,7 @@ public class Aluno {
         stmt.close();
         con.close();
     }
-
+    
     public Aluno(long rowId, int RA, String nome, String curso, int semestre) {
         this.rowId = rowId;
         this.RA = RA;
