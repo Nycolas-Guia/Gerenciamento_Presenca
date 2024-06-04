@@ -56,7 +56,7 @@ public class Usuario {
         
         public static void inserirUsuario(String login, String senha) throws Exception {
         Connection con = AppListener.getConnection();
-        String sql = "INSERT INTO USUARIO (nm_login=?, desc_senha=?) "
+        String sql = "INSERT INTO USUARIO (nm_login, desc_senha) "
                 + "VALUES(?, ?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, login);
