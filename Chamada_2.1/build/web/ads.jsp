@@ -12,6 +12,5 @@
         <%if(username != null){%>
         <h1>Desenvolvimento de Software Multiplataforma</h1>
         <%}%>
-        <h3><a href='index.jsp'> Voltar</a></h3>
     </body>
 </html>
