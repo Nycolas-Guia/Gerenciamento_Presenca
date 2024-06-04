@@ -13,6 +13,7 @@
     <center><h1>Página Inicial</h1></center> 
     <h2> Olá, professor!</h2>
     <h3><a href='teste.jsp'> Testes</a></h3>
+    <h3><a href='chamada.jsp'> Chamada</a></h3>
     <%}%>
 </body>
 </html>
