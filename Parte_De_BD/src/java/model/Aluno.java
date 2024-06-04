@@ -18,7 +18,7 @@ public class Aluno {
         return "CREATE TABLE IF NOT EXISTS ALUNO("
                 + "id_ra NUMERIC(13) UNIQUE NOT NULL,"
                 + "nm_aluno VARCHAR(50) NOT NULL,"
-                + "sg_curso VARCHAR(5) NOT NULL"
+                + "sg_curso VARCHAR(5) NOT NULL,"
                 + "qt_semestre CHAR(1) NOT NULL"
                 + ")";      
     }
