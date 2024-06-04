@@ -35,8 +35,8 @@ public class AppListener implements ServletContextListener{
                 Aluno.inserirAluno(0000000000001, "Gustavo", "ADS", '1');
                 initializeLog += "Conta criada; ";
             }
-            initializeLog += "Criando a tabela USUARIO caso não exista...";            
-            s.execute(Usuario.getCreateStatement());
+            initializeLog += "Criando a tabela USUARIO caso não exista...";
+            s.execute(Usuario.getCreateStatement());            
             if(Usuario.getUsuario().isEmpty()){
                 initializeLog += "Adicionando usuário padrão...";
                 Usuario.inserirUsuario("Gustavo", "1234");

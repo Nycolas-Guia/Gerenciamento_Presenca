@@ -11,7 +11,7 @@ public class Semestre {
     private int semestre;
     
     public static String getCreateStatement(){
-        return "CREATE TABLE IF NOT EXISTS semstre ("
+        return "CREATE TABLE IF NOT EXISTS SEMESTRE("
                 + "qt_semestre CHAR(1) UNIQUE NOT NULL"
                 + ")";
     }
@@ -20,7 +20,7 @@ public class Semestre {
         ArrayList<Semestre> lista = new ArrayList<>();
         Connection con = AppListener.getConnection();
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("Select rowId, * FROM semestre");
+        ResultSet rs = stmt.executeQuery("Select rowId, * FROM SEMESTRE");
         while (rs.next()) {
             long rowId = rs.getLong("rowid");
             int semestre = rs.getInt("qt_semestre");

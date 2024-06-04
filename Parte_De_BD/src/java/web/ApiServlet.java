@@ -79,11 +79,11 @@ public class ApiServlet extends HttpServlet {
             throws Exception {
         if (request.getMethod().toLowerCase().equals("put")) {
             JSONObject body = getJSONBody(request.getReader());
-            String login = body.getString("nm_login");
+            String login = body.getString("login");
             String senha = body.getString("senha");
             Usuario u = Usuario.getUsuario(login, senha);
-            Aluno a = null;
-            if (u == null) {
+            Aluno a = Aluno.showAluno();
+            if (u != null) {
                 response.sendError(403, "Login ou senha incorreta");
             } else {
                 request.getSession().setAttribute("Aluno", a);
@@ -122,7 +122,7 @@ public class ApiServlet extends HttpServlet {
             response.sendError(401, "Não autorizado: não conectado");                
             
         } else if(request.getMethod().toLowerCase().equals("get")){
-            file.put("list", new JSONArray(Aluno.getAluno()));
+            file.put("list", new JSONArray(Usuario.getUsuario()));
             
         } else if(request.getMethod().toLowerCase().equals("post")){
             JSONObject body = getJSONBody(request.getReader());
@@ -131,7 +131,7 @@ public class ApiServlet extends HttpServlet {
             String curso = body.getString("sg_curso");
             char semestre = body.getString("qt_semestre").charAt(0);
             Aluno.inserirAluno(RA, nome, curso, semestre);
-            file.put("message", "Usuário adicionado");
+            file.put("message", "Aluno adicionado");
         
         } else if(request.getMethod().toLowerCase().equals("put")){
             JSONObject body = getJSONBody(request.getReader());
@@ -140,13 +140,13 @@ public class ApiServlet extends HttpServlet {
             String curso = body.getString("sg_curso");
             char semestre = body.getString("qt_semestre").charAt(0);
             Aluno.updateAluno(RA, nome, curso, semestre);
-            file.put("message", "Usuário atualizado");
+            file.put("message", "Aluno atualizado");
             
         
         } else if(request.getMethod().toLowerCase().equals("delete")){
             int RA = Integer.parseInt(request.getParameter("id_ra"));
             Aluno.deleteUsuario(RA);
-            file.put("message", "Usuário deletado");
+            file.put("message", "Aluno deletado");
 
         } else{
             response.sendError(405, "Método não permitido");
@@ -167,6 +167,11 @@ public class ApiServlet extends HttpServlet {
 
     private void processCall(JSONObject file, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        
+        if (request.getMethod(). toLowerCase().equals("delete")){
+                String name = request.getParameter("nm_login");
+                Usuario.deleteUsuario(name);
+        }
     }
 
 }
