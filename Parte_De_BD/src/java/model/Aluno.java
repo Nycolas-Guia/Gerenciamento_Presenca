@@ -33,7 +33,7 @@ public class Aluno {
             int RA = rs.getInt("id_ra");
             String nome = rs.getString("nm_aluno");
             String curso = rs.getString("sg_curso");
-            char semestre = rs.getString("qt_semestre").charAt(0);
+            int semestre = rs.getInt("qt_semestre");
             lista.add(new Aluno(rowId, RA, nome, curso, semestre));
         }
         con.close();
@@ -52,7 +52,7 @@ public class Aluno {
             int RA = rs.getInt("id_ra");
             String nome = rs.getString("nm_aluno");
             String curso = rs.getString("sg_curso");
-            char semestre = rs.getString("qt_semestre").charAt(0);
+            int semestre = rs.getInt("qt_semestre");
             aluno = new Aluno(rowId, RA, nome, curso, semestre);
         }
         con.close();
@@ -61,7 +61,7 @@ public class Aluno {
         return aluno;
     }
         
-        public static void inserirAluno(int RA, String nome, String curso, char semestre) throws Exception {
+        public static void inserirAluno(int RA, String nome, String curso, int semestre) throws Exception {
         Connection con = AppListener.getConnection();
         String sql = "INSERT INTO ALUNO(id_ra, nm_aluno, sg_curso, qt_semestre) "
                 + "VALUES(?, ?, ?, ?)";
@@ -69,12 +69,12 @@ public class Aluno {
         stmt.setInt(1, RA);
         stmt.setString(2, nome);
         stmt.setString(3, curso);
-        stmt.setString(4, String.valueOf(semestre));
+        stmt.setInt(4, semestre);
         stmt.execute();
         stmt.close();
         con.close();
     }
-        public static void updateAluno(int RA, String nome, String curso, char semestre) throws Exception {
+        public static void updateAluno(int RA, String nome, String curso, int semestre) throws Exception {
         Connection con = AppListener.getConnection();
         String sql = "UPDATE ALUNO SET nm_aluno=?, sg_curso=?, qt_semestre=? WHERE id_ra=?";
         PreparedStatement stmt = con.prepareStatement(sql);
