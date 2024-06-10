@@ -25,6 +25,10 @@ public class AppListener implements ServletContextListener{
             initializeLog += new Date() + ": Iniciando criação do banco de dados;"; // Adiciona a variavel a data e um texto
             s.execute(Falta.getCreateStatement());
             s.execute(Materia.getCreateStatement());
+            if(Materia.getMateria().isEmpty()){
+                Materia.inserirMateria("Programação Orientada a Objeto", "Ricardo Pupo", "ADS", 4);
+                Materia.inserirMateria("Estrutura de Dados", "Ricardo Pupo", "DSM", 2);
+            }
             s.execute(Semestre.getCreateStatement());
             if(Semestre.getSemestre().isEmpty()){
                 Semestre.inserirSemestre(1);

@@ -18,8 +18,8 @@ public class Aluno {
         return "CREATE TABLE IF NOT EXISTS ALUNO("
                 + "id_ra NUMERIC(13) UNIQUE NOT NULL,"
                 + "nm_aluno VARCHAR(50) NOT NULL,"
-                + "sg_curso VARCHAR(5) NOT NULL REFERENCES CURSO (sg_curso),"
-                + "qt_semestre CHAR(1) NOT NULL REFERENCES SEMESTRE (qt_semestre)"
+                + "sg_curso VARCHAR(5) NOT NULL, FOREIGN KEY (sg_curso) REFERENCES CURSO (sg_curso),"
+                + "qt_semestre CHAR(1) NOT NULL, FOREIGN KEY (qt_semestre) REFERENCES SEMESTRE (qt_semestre)"
                 + ")";      
     }
     
