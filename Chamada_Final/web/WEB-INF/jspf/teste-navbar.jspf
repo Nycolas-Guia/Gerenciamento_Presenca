@@ -31,7 +31,7 @@ body {
         int i = users.indexOf((String) session.getAttribute("name"));
         session.removeAttribute("name");
         if(i>=0) users.remove(i);        
-        response.sendRedirect("http://localhost:8080/Chamada_2.1/");
+        response.sendRedirect("http://localhost:8080/Chamada_Final/");
     }
     String username = (String) session.getAttribute("name");
 %>

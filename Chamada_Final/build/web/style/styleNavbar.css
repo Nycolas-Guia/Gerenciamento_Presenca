@@ -1,6 +1,7 @@
 .container{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between;    
+    
 }
 .navbar-house{
    color: var(--bs-white);

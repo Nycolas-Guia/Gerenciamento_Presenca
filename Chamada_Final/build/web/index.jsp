@@ -10,7 +10,7 @@
         <%@include file="WEB-INF/jspf/navbar.jspf"%>
         <%@include file="WEB-INF/jspf/html-body-libs.jspf"%>
         <%if(username != null){%>
-        <div class="container p-5 mt-5">
+        <div class="container p-5">
             <div class="container col-sm-5" style="margin-right: 5rem">
                 <div class="card p-3 text-center border-2 border-dark" style="width: 20rem;">                
                     <div class="card-body">
