@@ -11,7 +11,7 @@ public class Curso {
     private String desc;
 
     public static String getCreateStatement(){
-        return "CREATE TABLE IF NOT EXISTS curso("
+        return "CREATE TABLE IF NOT EXISTS CURSO("
                 + "sg_curso VARCHAR(5) UNIQUE NOT NULL,"
                 + "nm_curso VARCHAR(50) NOT NULL,"
                 + "ds_curso VARCHAR(150)"
@@ -22,7 +22,7 @@ public class Curso {
         ArrayList<Curso> list = new ArrayList<>();
         Connection con = AppListener.getConnection();
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT rowid, * from curso");
+        ResultSet rs = stmt.executeQuery("SELECT rowid, * from CURSO");
         while (rs.next()) {
             long rowId = rs.getLong("rowid");
             String sigla = rs.getString("sg_curso");
@@ -38,7 +38,7 @@ public class Curso {
  
     public static void insertCurso(String sigla, String nome, String desc) throws Exception {
         Connection con = AppListener.getConnection();
-        String sql = "INSERT INTO curso(sg_curso, nm_curso, ds_curso)"
+        String sql = "INSERT INTO CURSO(sg_curso, nm_curso, ds_curso)"
                 + "VALUES(?, ?, ?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setString(1, sigla);

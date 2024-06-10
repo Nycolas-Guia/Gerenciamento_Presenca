@@ -12,7 +12,9 @@ public class Falta {
     public static String getCreateStatement() throws Exception{
         return "CREATE TABLE IF NOT EXISTS FALTA("
                 + "qt_falta NUMERIC(3),"
-                + "id_ra NUMERIC(13) UNIQUE NOT NULL"
+                + "id_ra NUMERIC(13),"
+                + "FOREING KEY (id_ra)"
+                + " REFERECES ALUNO (id_ra)"
                 + ")";
     }
     

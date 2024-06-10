@@ -8,7 +8,7 @@ public class Materia {
     private String professor;
     
     public static String getCreateStatement(){
-        return "CREATE TABLE IF NOT EXISTS materia("
+        return "CREATE TABLE IF NOT EXISTS MATERIA("
                 + "sg_sigla VARCHAR(5) UNIQUE NOT NULL,"
                 + "qt_semestre CHAR(1) UNIQUE NOT NULL,"
                 + "nm_materia VARCHAR(50) NOT NULL,"
