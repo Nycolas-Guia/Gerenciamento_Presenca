@@ -38,8 +38,8 @@ public class Curso {
  
     public static void insertCurso(String sigla, String nome, String desc) throws Exception { // Função para inserir novos cursos ao banco
         Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
-        String sql = "INSERT INTO CURSO(sg_curso, nm_curso, ds_curso)"  // Cria uma variavel com um código sql dentro
-                + "VALUES(?, ?, ?)";
+        String sql = "INSERT INTO CURSO(sg_curso, nm_curso, ds_curso)"  
+                + "VALUES(?, ?, ?)";// Cria uma variavel com um código sql dentro
         PreparedStatement stmt = con.prepareStatement(sql); // Prepara o código SQL para ser executado
         stmt.setString(1, sigla); // Seta a sigla como primeira variável a ser inserida na tabela
         stmt.setString(2, nome); // Seta o nome como segunda variável a ser inserida na tabela

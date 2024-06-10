@@ -23,18 +23,68 @@ public class AppListener implements ServletContextListener{
             Connection c = AppListener.getConnection(); // Cria uma conexão com o banco
             Statement s = c.createStatement(); // Executa consultas dentro do banco de dados conectado
             initializeLog += new Date() + ": Iniciando criação do banco de dados;"; // Adiciona a variavel a data e um texto
+            s.execute(Falta.getCreateStatement());
+            s.execute(Materia.getCreateStatement());
+            s.execute(Semestre.getCreateStatement());
+            if(Semestre.getSemestre().isEmpty()){
+                Semestre.inserirSemestre(1);
+                Semestre.inserirSemestre(2);
+                Semestre.inserirSemestre(3);
+                Semestre.inserirSemestre(4);
+                Semestre.inserirSemestre(5);
+                Semestre.inserirSemestre(6);
+            }
             initializeLog += "Criando a tabela ALUNO caso não exista..."; // Adiciona um texto na variavel
             s.execute(Aluno.getCreateStatement()); // Executa a função getCreateStatement dentro da classe Aluno
             if(Aluno.getAluno().isEmpty()){ // Caso o array de alunos esteja vazio, esse if será acionado
                 initializeLog += "Adicionando aluno padrão..."; // Adiciona um texto na variavel
-                Aluno.inserirAluno(0000000000001, "Gustavo", "ADS", 1); // Adiciona um aluno
-                initializeLog += "Conta criada; "; // Adiciona um texto na variavel
+                Aluno.inserirAluno(0000000000001, "Lucas Ferreira", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000001, 0);
+                Aluno.inserirAluno(0000000000002, "Maria Silva", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000002, 0);
+                Aluno.inserirAluno(0000000000003, "Pedro Souza", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000003, 0);
+                Aluno.inserirAluno(0000000000004, "Ana Costa", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000004, 0);
+                Aluno.inserirAluno(0000000000005, "João Oliveira", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000005, 0);
+                Aluno.inserirAluno(0000000000006, "Laura Pereira", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000006, 0);
+                Aluno.inserirAluno(0000000000007, "Gabriel Lima", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000007, 0);
+                Aluno.inserirAluno(0000000000010, "Júlia Gomes", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000010, 0);
+                Aluno.inserirAluno(0000000000011, "Carlos Rocha", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000011, 0);
+                Aluno.inserirAluno(0000000000012, "Fernanda Santos", "ADS", 4); // Adiciona um aluno
+                Falta.inserirFalta(0000000000012, 0);
+                Aluno.inserirAluno(0000000000013, "Bruno Almeida", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000013, 0);
+                Aluno.inserirAluno(0000000000014, "Mariana Melo", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000014, 0);
+                Aluno.inserirAluno(0000000000015, "Rafael Barbosa", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000015, 0);
+                Aluno.inserirAluno(0000000000016, "Beatriz Moreira", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000016, 0);
+                Aluno.inserirAluno(0000000000017, "Daniel Araújo", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000017, 0);
+                Aluno.inserirAluno(0000000000020, "Camila Ribeiro", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000020, 0);
+                Aluno.inserirAluno(0000000000021, "Felipe Martins", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000021, 0);
+                Aluno.inserirAluno(0000000000022, "Letícia Nascimento", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000022, 0);
+                Aluno.inserirAluno(0000000000023, "Thiago Correia", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000023, 0);
+                Aluno.inserirAluno(0000000000024, "Sofia Carvalho", "DSM", 2); // Adiciona um aluno
+                Falta.inserirFalta(0000000000024, 0);
+                initializeLog += "Contas criada; "; // Adiciona um texto na variavel
             }
             initializeLog += "Criando a tabela USUARIO caso não exista..."; // Adiciona um texto na variavel
             s.execute(Usuario.getCreateStatement()); // Executa a função getCreateStatement dentro da classe Usuario
             if(Usuario.getUsuario().isEmpty()){ // Caso o array de usuarios esteja vazio, esse if será acionado
                 initializeLog += "Adicionando usuário padrão..."; // Adiciona um texto na variavel
-                Usuario.inserirUsuario("Gustavo", "1234"); // Adiciona um usuario
+                Usuario.inserirUsuario("Pupo", "1234"); // Adiciona um usuario
                 initializeLog += "Conta criada; "; // Adiciona um texto na variavel
             }
             initializeLog += "Criando a tabela CURSO caso não exista..."; // Adiciona um texto na variavel

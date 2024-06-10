@@ -56,8 +56,8 @@ public class Usuario {
 
     public static void inserirUsuario(String login, String senha) throws Exception { // Função para inserir novos usuarios ao banco
         Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
-        String sql = "INSERT INTO USUARIO (nm_login, nm_senha) " // Cria uma variavel com um código sql dentro
-                + "VALUES(?, ?)";
+        String sql = "INSERT INTO USUARIO (nm_login, nm_senha) " 
+                + "VALUES(?, ?)";// Cria uma variavel com um código sql dentro
         PreparedStatement stmt = con.prepareStatement(sql); // Prepara o código SQL para ser executado
         stmt.setString(1, login); // Seta o login como primeira variável a ser inserido na tabela
         stmt.setString(2, AppListener.getMd5Hash(senha)); // Seta o hash da senha como primeira variável a ser inserida na tabela

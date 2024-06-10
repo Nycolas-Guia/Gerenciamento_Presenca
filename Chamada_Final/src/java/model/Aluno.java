@@ -45,8 +45,8 @@ public class Aluno {
         public static void inserirAluno(int RA, String nome, String curso, int semestre)
                 throws Exception { // Função para inserir novos alunos ao banco
         Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
-        String sql = "INSERT INTO ALUNO(id_ra, nm_aluno, sg_curso, qt_semestre) " // Cria uma variavel com um código sql dentro
-                + "VALUES(?, ?, ?, ?)"; 
+        String sql = "INSERT INTO ALUNO(id_ra, nm_aluno, sg_curso, qt_semestre) " 
+                + "VALUES(?, ?, ?, ?)"; // Cria uma variavel com um código sql dentro
         PreparedStatement stmt = con.prepareStatement(sql); // Prepara o código SQL para ser executado
         stmt.setInt(1, RA); // Seta o RA como primeira variável a ser inserida na tabela
         stmt.setString(2, nome); // Seta o nome como segunda variável a ser inserida na tabela

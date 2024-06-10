@@ -36,11 +36,22 @@ public class Falta {
     
     public static void inserirFalta(int RA, int faltas) throws Exception { // Função para inserir novos faltas ao banco
         Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
-        String sql = "INSERT INTO FALTA(id_ra, qt_falta) " // Cria uma variavel com um código sql dentro
-                + "VALUES(?, ?)";
+        String sql = "INSERT INTO FALTA(id_ra, qt_falta) "
+                + "VALUES(?, ?)"; // Cria uma variavel com um código sql dentro
         PreparedStatement stmt = con.prepareStatement(sql); // Prepara o código SQL para ser executado
         stmt.setInt(1, RA); // Seta o RA como primeira variável a ser inserida na tabela
         stmt.setInt(2, faltas); // Seta a falta como segunda variável a ser inserida na tabela
+        stmt.execute(); // Fecha as conexões que foram criadas
+        stmt.close();
+        con.close();
+    }
+    
+    public static void updateFalta(int faltas, int RA) throws Exception { // Função para inserir novos faltas ao banco
+        Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
+        String sql = "UPDATE FALTA SET qt_falta=? WHERE id_ra=?"; // Cria uma variavel com um código sql dentro
+        PreparedStatement stmt = con.prepareStatement(sql); // Prepara o código SQL para ser executado
+        stmt.setInt(1, faltas); // Seta a falta como segunda variável a ser inserida na tabela
+        stmt.setInt(2, RA); // Seta o RA como primeira variável a ser inserida na tabela
         stmt.execute(); // Fecha as conexões que foram criadas
         stmt.close();
         con.close();
