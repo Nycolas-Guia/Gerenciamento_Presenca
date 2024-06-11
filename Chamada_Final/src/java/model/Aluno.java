@@ -7,27 +7,26 @@ import static web.AppListener.initializeLog;
 
 public class Aluno {
 
-    private long rowId; 
+    private long rowId;
     private int RA;
-    private String nome;       
+    private String nome;
     private String curso;
     private int semestre;
-    
 
     public static String getCreateStatement() { // Função que cria a tabela caso não exista
         return "CREATE TABLE IF NOT EXISTS ALUNO("
                 + "id_ra NUMERIC(13) UNIQUE NOT NULL,"
                 + "nm_aluno VARCHAR(50) NOT NULL,"
-                + "sg_curso VARCHAR(5) NOT NULL, FOREIGN KEY (sg_curso) REFERENCES CURSO (sg_curso),"
-                + "qt_semestre CHAR(1) NOT NULL, FOREIGN KEY (qt_semestre) REFERENCES SEMESTRE (qt_semestre)"
-                + ")";      
+                + "qt_semestre CHAR(1) NOT NULL,"
+                + "sg_curso VARCHAR(5) NOT NULL, FOREIGN KEY (sg_curso) REFERENCES CURSO (sg_curso)"
+                + ")";
     }
-    
+
     public static ArrayList<Aluno> getAluno() throws Exception { // Função que mostra todos os alunos dentro da tabela ALUNO
         ArrayList<Aluno> lista = new ArrayList<>(); // Cria um array
         Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
         Statement stmt = con.createStatement(); // Executa consultas dentro do banco de dados conectado
-        ResultSet rs = stmt.executeQuery("SELECT rowid, * FROM ALUNO"); // Executa o código SQL entre parenteses
+        ResultSet rs = stmt.executeQuery("SELECT rowid, * FROM ALUNO ORDER BY qt_semestre"); // Executa o código SQL entre parenteses
         while (rs.next()) { // while que funcionará até que não tenha mais colunas dentro da tabela ALUNO
             long rowId = rs.getLong("rowid"); // Cria uma variável para armazenar o rowid do aluno na tabela
             int RA = rs.getInt("id_ra"); // Cria uma variável para armazenar o ra do aluno na tabela
@@ -41,11 +40,49 @@ public class Aluno {
         rs.close();
         return lista; // Retorna a lista com os alunos
     }
-        
-        public static void inserirAluno(int RA, String nome, String curso, int semestre)
-                throws Exception { // Função para inserir novos alunos ao banco
+
+    public static ArrayList<Aluno> alunoADS() throws Exception {
+        ArrayList<Aluno> lista = new ArrayList<>(); // Cria um array
         Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
-        String sql = "INSERT INTO ALUNO(id_ra, nm_aluno, sg_curso, qt_semestre) " 
+        Statement stmt = con.createStatement(); // Executa consultas dentro do banco de dados conectado
+        ResultSet rs = stmt.executeQuery("SELECT rowid, * FROM ALUNO WHERE sg_curso = 'ADS' ORDER BY nm_aluno"); // Executa o código SQL entre parenteses
+        while (rs.next()) { // while que funcionará até que não tenha mais colunas dentro da tabela ALUNO
+            long rowId = rs.getLong("rowid"); // Cria uma variável para armazenar o rowid do aluno na tabela
+            int RA = rs.getInt("id_ra"); // Cria uma variável para armazenar o ra do aluno na tabela
+            String nome = rs.getString("nm_aluno"); // Cria uma variável para armazenar o nome do aluno na tabela
+            String curso = rs.getString("sg_curso"); // Cria uma variável para armazenar o curso do aluno na tabela
+            int semestre = rs.getInt("qt_semestre"); // Cria uma variável para armazenar o semestre atual do aluno na tabela
+            lista.add(new Aluno(rowId, RA, nome, curso, semestre)); // Adiciona as variáveis dentro array
+        }
+        con.close(); // Fecha as conexões que foram criadas no começo da função
+        stmt.close();
+        rs.close();
+        return lista; // Retorna a lista com os alunos
+    }
+    
+    public static ArrayList<Aluno> alunoDSM() throws Exception {
+        ArrayList<Aluno> lista = new ArrayList<>(); // Cria um array
+        Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
+        Statement stmt = con.createStatement(); // Executa consultas dentro do banco de dados conectado
+        ResultSet rs = stmt.executeQuery("SELECT rowid, * FROM ALUNO WHERE sg_curso = 'DSM' ORDER BY nm_aluno"); // Executa o código SQL entre parenteses
+        while (rs.next()) { // while que funcionará até que não tenha mais colunas dentro da tabela ALUNO
+            long rowId = rs.getLong("rowid"); // Cria uma variável para armazenar o rowid do aluno na tabela
+            int RA = rs.getInt("id_ra"); // Cria uma variável para armazenar o ra do aluno na tabela
+            String nome = rs.getString("nm_aluno"); // Cria uma variável para armazenar o nome do aluno na tabela
+            String curso = rs.getString("sg_curso"); // Cria uma variável para armazenar o curso do aluno na tabela
+            int semestre = rs.getInt("qt_semestre"); // Cria uma variável para armazenar o semestre atual do aluno na tabela
+            lista.add(new Aluno(rowId, RA, nome, curso, semestre)); // Adiciona as variáveis dentro array
+        }
+        con.close(); // Fecha as conexões que foram criadas no começo da função
+        stmt.close();
+        rs.close();
+        return lista; // Retorna a lista com os alunos
+    }
+
+    public static void inserirAluno(int RA, String nome, String curso, int semestre)
+            throws Exception { // Função para inserir novos alunos ao banco
+        Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
+        String sql = "INSERT INTO ALUNO(id_ra, nm_aluno, sg_curso, qt_semestre) "
                 + "VALUES(?, ?, ?, ?)"; // Cria uma variavel com um código sql dentro
         PreparedStatement stmt = con.prepareStatement(sql); // Prepara o código SQL para ser executado
         stmt.setInt(1, RA); // Seta o RA como primeira variável a ser inserida na tabela
@@ -56,9 +93,9 @@ public class Aluno {
         stmt.close(); // Fecha as conexões que foram criadas
         con.close();
     }
-        
-        public static void updateAluno(int RA, String nome, String curso, int semestre)
-                throws Exception { // Função para atualizar aluno que JÁ ESTÃO dentro da tabela
+
+    public static void updateAluno(int RA, String nome, String curso, int semestre)
+            throws Exception { // Função para atualizar aluno que JÁ ESTÃO dentro da tabela
         Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
         String sql = "UPDATE ALUNO SET nm_aluno=?, sg_curso=?, qt_semestre=? WHERE id_ra=?"; // Cria uma variavel com um código sql dentro
         PreparedStatement stmt = con.prepareStatement(sql); // Prepara o código SQL para ser executado
@@ -70,8 +107,8 @@ public class Aluno {
         stmt.close(); // Fecha as conexões que foram criadas
         con.close();
     }
-    
-    public static void deleteUsuario(int RA) throws Exception{ // Função que deleta Alunos da tabela
+
+    public static void deleteUsuario(int RA) throws Exception { // Função que deleta Alunos da tabela
         Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
         String sql = "DELETE FROM ALUNO WHERE id_ra = ?"; // Cria uma variavel com um código sql dentro
         PreparedStatement stmt = con.prepareStatement(sql); // Prepara o código SQL para ser executado
@@ -80,11 +117,11 @@ public class Aluno {
         stmt.close(); // Fecha as conexões que foram criadas
         con.close();
     }
-    
+
     public Aluno(long rowId, int RA, String nome, String curso, int semestre) { // Construtor das variáveis existentes na classe
         this.rowId = rowId;
         this.RA = RA;
-        this.nome = nome;       
+        this.nome = nome;
         this.curso = curso;
         this.semestre = semestre;
     }
@@ -96,7 +133,7 @@ public class Aluno {
     public void setRowId(long rowId) {
         this.rowId = rowId;
     }
-    
+
     public int getRA() {
         return RA;
     }
@@ -111,7 +148,7 @@ public class Aluno {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }    
+    }
 
     public String getCurso() {
         return curso;
@@ -119,7 +156,7 @@ public class Aluno {
 
     public void setCurso(String curso) {
         this.curso = curso;
-    }    
+    }
 
     public int getSemestre() {
         return semestre;

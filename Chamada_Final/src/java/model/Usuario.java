@@ -13,7 +13,7 @@ public class Usuario {
     public static String getCreateStatement() { // Função que cria a tabela caso não exista
         return "CREATE TABLE IF NOT EXISTS USUARIO("
                 + "nm_login VARCHAR(50) UNIQUE NOT NULL,"
-                + "nm_senha VARCHAR NOT NULL"
+                + "nm_senha VARCHAR(30) NOT NULL"
                 + ")";
     }
 

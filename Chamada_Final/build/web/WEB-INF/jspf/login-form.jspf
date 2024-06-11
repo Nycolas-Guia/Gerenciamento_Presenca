@@ -1,5 +1,4 @@
 <%@ page pageEncoding="UTF-8" %>
-<link rel="stylesheet" type="text/css" href="style/styleForm.css">
 <center>
     <div class="p-3 container-sm-2">
         <div class="card border-2 bg-danger-subtle border-danger col-sm-3 ">

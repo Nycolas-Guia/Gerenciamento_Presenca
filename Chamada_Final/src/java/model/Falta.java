@@ -12,9 +12,7 @@ public class Falta {
     public static String getCreateStatement() throws Exception{ // Função que cria a tabela caso não exista
         return "CREATE TABLE IF NOT EXISTS FALTA("
                 + "qt_falta NUMERIC(3),"
-                + "id_ra NUMERIC(13),"
-                + "FOREING KEY (id_ra)"
-                + " REFERECES ALUNO (id_ra)"
+                + "id_ra NUMERIC(13)"
                 + ")";
     }
     
@@ -37,7 +35,7 @@ public class Falta {
     public static void inserirFalta(int RA, int faltas) throws Exception { // Função para inserir novos faltas ao banco
         Connection con = AppListener.getConnection(); // Cria uma conexão com o banco
         String sql = "INSERT INTO FALTA(id_ra, qt_falta) "
-                + "VALUES(?, ?)"; // Cria uma variavel com um código sql dentro
+                + "VALUES(?, ? + qt_falta)"; // Cria uma variavel com um código sql dentro
         PreparedStatement stmt = con.prepareStatement(sql); // Prepara o código SQL para ser executado
         stmt.setInt(1, RA); // Seta o RA como primeira variável a ser inserida na tabela
         stmt.setInt(2, faltas); // Seta a falta como segunda variável a ser inserida na tabela

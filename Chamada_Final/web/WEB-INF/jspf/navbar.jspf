@@ -1,57 +1,114 @@
 <%@ page pageEncoding="UTF-8" %>
 <link rel="stylesheet" type="text/css" href="style/styleNavbar.css">
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    </head>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<div id="session">
+    <!-- Começo da NavBar-->   
 
-    <%
-            if(application.getAttribute("users") == null){
-            application.setAttribute("users", new java.util.ArrayList());
-        }
-    
-        java.util.ArrayList<String> users = (java.util.ArrayList) application.getAttribute("users");
-    
-        if(request.getParameter("session-login") != null){
-            session.setAttribute("name", request.getParameter("session-name"));
-            users.add((String) session.getAttribute("name"));
-            response.sendRedirect(request.getRequestURI());
-        }else if(request.getParameter("session-logout") != null){
-            int i = users.indexOf((String) session.getAttribute("name"));
-            session.removeAttribute("name");
-            if(i>=0) users.remove(i);        
-            response.sendRedirect("http://localhost:8080/Chamada_Final/");
-        }
-        String username = (String) session.getAttribute("name");
-    %>
+    <nav v-if="data" class="navbar navbar-dark bg-danger">
+        <div class="container-fluid" style="padding: 0px;">
+            <a class="navbar-house" href="index.jsp"><i class="bi bi-house-door"></i></a>                    
+            <div class="logout bg-danger">
+                <form>
+                    <span class="navbar-text me-2 text-light"> Olá, {{data.login}} </span>
+                    <button @click="logout();" class="btn btn-outline-light" type="button"><i class="bi bi-arrow-right-circle"></i> Sair</button>
+                </form>
+            </div>            
+        </div>
+    </nav>    
+    <!-- Fim da NavBar-->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <div class="container-fluid" style="padding: 0px;">        
-        <nav class="navbar navbar-dark bg-danger">
-            <div class="container-fluid">
-                <a class="navbar-house" href="${pageContext.request.contextPath}/index.jsp">
-                    <i class="bi bi-house-door"></i>
-                </a>
-                <%if (username != null){%>
-                <div class="logout bg-danger">
-                    <form>
-                        <span class="navbar-text me-2 text-light">
-                            Olá, <%=username%>
-                        </span>
-                        <button class="btn btn-outline-light" type="submit" name="session-logout">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
-                                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
-                            </svg>
-                        </button>
-                    </form>  
+    <!-- Começo do LoginForm-->
+    <div class="m-2" v-else>
+        <center>
+            <div class="p-3 container-sm-2">
+                <div class="card border-2 bg-danger-subtle border-danger col-sm-3 ">
+                    <div class="card-body">
+                        <h5 class="card-title">LOGIN</h5>                
+                        <form>
+                            <div class="row">
+                                <label for="formName" class="col-sm-3 col-form-label">Nome:</label>
+                                <input type="text" class="form-control border-danger" v-model="loginUsername" maxlength="50" required>
+                                <hr/>
+                                <label for="formName" class="col-sm-3 col-form-label">Senha:</label>
+                                <input type="password" class="form-control border-danger" v-model="loginPass" maxlength="30" required>                        
+                                <hr/>
+                                <button @click="login()" type="button" class="btn btn-primary" >Entrar</button>
+                            </div> 
+                        </form>
+                    </div>
                 </div>
-                <%}%>
             </div>
-        </nav>
+        </center>
     </div>
+    <div v-if="error && error!=='Nao conectado'" class="alert alert-danger m-2" role="alert">
+        {{error}}
+    </div>
+    <!-- Fim do LoginForm-->
 
-    <%if(username == null){%>
-    <div class="m-2">
-        <%@include file="login-form.jspf"%>
-    </div>
-    <%}%>
+</div>
+
+<script> // Parte que conecta com o banco de dados
+    const shared = Vue.reactive({session: null});
+
+    const session = Vue.createApp({
+        data() {
+            return{
+                shared: shared,
+                error: null,
+                loginUsername: null,
+                loginPass: null,
+                data: null
+            }
+        },
+        methods: {
+            async request(url = "", method, data) {
+                try {
+                    const response = await fetch(url, {
+                        method: method,
+                        headers: {"Content-Type": "application/json", },
+                        body: JSON.stringify(data)
+                    });
+                    if (response.status == 200) {
+                        return response.json();
+                    } else {
+                        this.error = response.statusText;
+                    }
+                } catch (e) {
+                    this.error = e;
+                    return null;
+            }
+            },
+            async loadSession() {
+                const data = await this.request("/Chamada_Final/api/session", "GET");
+                if (data) {
+                    this.data = data;
+                    this.error = null;
+                    this.shared.session = this.data;
+                }
+            },
+            async login() {
+                const data = await this.request("/Chamada_Final/api/session", "PUT", {"login": this.loginUsername, "senha": this.loginPass});
+                if (data) {
+                    this.data = data;
+                    this.error = null;
+                    this.shared.session = this.data;
+                }
+            },
+            async logout() {
+                const data = await this.request("/Chamada_Final/api/session", "DELETE");
+                if (data) {
+                    this.data = null;
+                    this.error = null;
+                    this.shared.session = this.data;
+                }
+            }
+        },
+        mounted() {
+            this.loadSession();
+
+        }
+    });
+    session.mount('#session');
+</script>

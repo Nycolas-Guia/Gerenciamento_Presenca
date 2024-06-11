@@ -33,8 +33,14 @@ public class ApiServlet extends HttpServlet {
                 processSession(file, request, response); // Acessa a função processSession
             } else if (request.getRequestURI().endsWith("/api/aluno")) { // If que será acionado caso a URI termine com aluno
                 processAluno(file, request, response); // Acessa a função processAluno
-            } else if (request.getRequestURI().endsWith("/api/call")) { // If que será acionado caso a URI termine com call
-                processCall(file, request, response); // Acessa a função processCall
+            } else if (request.getRequestURI().endsWith("/api/ADS")) { // If que será acionado caso a URI termine com aluno
+                processADS(file, request, response); // Acessa a função processAluno
+            } else if (request.getRequestURI().endsWith("/api/DSM")) { // If que será acionado caso a URI termine com aluno
+                processDSM(file, request, response); // Acessa a função processAluno
+            } else if (request.getRequestURI().endsWith("/api/falta")) { // If que será acionado caso a URI termine com call
+                processFalta(file, request, response); // Acessa a função processCall
+            } else if (request.getRequestURI().endsWith("/api/curso")) { // If que será acionado caso a URI termine com call
+                processCurso(file, request, response); // Acessa a função processCall
             } else {
                 response.sendError(400, "URL Inválida"); // Informa ao cliente que a solicitação não pôde ser processada
                 file.put("erro", "URL Inválida"); // Adiciona ao JSONobject o erro
@@ -98,7 +104,7 @@ public class ApiServlet extends HttpServlet {
 
         } else if (request.getMethod().toLowerCase().equals("get")) { // If que será acionado caso o método seja get
             if (request.getSession().getAttribute("Usuario") == null) { // Caso não tenha nenhuma sessão conectada
-                response.sendError(403, "Não conectado"); // Exibe erro de não conexão
+                response.sendError(403, "Nao conectado"); // Exibe erro de não conexão
             } else {
                 Usuario u = (Usuario) request.getSession().getAttribute("Usuario"); // Define um objeto como atributo do usuario, mostrando que existe conexão
                 file.put("id", u.getRowId()); // Mostra o rowid
@@ -117,7 +123,7 @@ public class ApiServlet extends HttpServlet {
             response.sendError(401, "Não autorizado: não conectado");// Exibe erro de não conexão
             
         } else if(request.getMethod().toLowerCase().equals("get")){ // If que será acionado caso o método seja get
-            file.put("Alunos", new JSONArray(Aluno.getAluno())); // Exibe o array localizado na classe Aluno
+            file.put("Alunos", new JSONArray(Aluno.getAluno())); // Exibe o array localizado na classe Aluno                  
             
         } else if(request.getMethod().toLowerCase().equals("post")){ // If que será acionado caso o método seja post
             JSONObject body = getJSONBody(request.getReader()); // Cria um objeto json
@@ -150,14 +156,70 @@ public class ApiServlet extends HttpServlet {
         }
     }
     
-    
-    private void processCall(JSONObject file, HttpServletRequest request, HttpServletResponse response)
+    private void processADS(JSONObject file, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        if(request.getSession().getAttribute("Usuario") == null){  // Caso não tenha nenhuma sessão conectada
+            response.sendError(401, "Não autorizado: não conectado");// Exibe erro de não conexão
+            
+        } else if(request.getMethod().toLowerCase().equals("get")){ // If que será acionado caso o método seja get
+            file.put("AlunosADS", new JSONArray(Aluno.alunoADS())); // Exibe o array localizado na classe Aluno                  
+            
+        } else{ // Caso o método não corresponda a nenhuma das opções
+            response.sendError(405, "Método não permitido"); // Mostra um erro de Método inválido
         
-        if (request.getMethod(). toLowerCase().equals("delete")){ // If que será acionado caso o método seja delete
-                String name = request.getParameter("nm_login"); // Pede o nome de login do usuario
-                Usuario.deleteUsuario(name); // Deleta o usuario com o login correspondente
         }
+        
     }
+    
+    private void processCurso(JSONObject file, HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        if(request.getSession().getAttribute("Usuario") == null){  // Caso não tenha nenhuma sessão conectada
+            response.sendError(401, "Não autorizado: não conectado");// Exibe erro de não conexão
+            
+        } else if(request.getMethod().toLowerCase().equals("get")){ // If que será acionado caso o método seja get
+            file.put("Cursos", new JSONArray(Curso.getCurso())); // Exibe o array localizado na classe Aluno                  
+            
+        } else{ // Caso o método não corresponda a nenhuma das opções
+            response.sendError(405, "Método não permitido"); // Mostra um erro de Método inválido
+        
+        }
+        
+    }
+    
+    private void processFalta(JSONObject file, HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        if(request.getSession().getAttribute("Usuario") == null){  // Caso não tenha nenhuma sessão conectada
+            response.sendError(401, "Não autorizado: não conectado");// Exibe erro de não conexão
+            
+        } else if(request.getMethod().toLowerCase().equals("get")){ // If que será acionado caso o método seja get                        
+            file.put("Faltas", new JSONArray(Falta.getFalta())); // Exibe o array localizado na classe Aluno                  
+            
+        } else if(request.getMethod().toLowerCase().equals("post")){ // If que será acionado caso o método seja get                        
+            JSONObject body = getJSONBody(request.getReader()); // Cria um objeto json
+            int RA = body.getInt("ra"); // Cria uma variavel que responderá caso esteja escrito ra no body do json object
+            int falta = body.getInt("falta");
+            Falta.inserirFalta(RA, falta);
+            
+        } else{ // Caso o método não corresponda a nenhuma das opções
+            response.sendError(405, "Método não permitido"); // Mostra um erro de Método inválido
+        
+        }
+        
+    }
+    
+    private void processDSM(JSONObject file, HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        if(request.getSession().getAttribute("Usuario") == null){  // Caso não tenha nenhuma sessão conectada
+            response.sendError(401, "Não autorizado: não conectado");// Exibe erro de não conexão
+            
+        } else if(request.getMethod().toLowerCase().equals("get")){ // If que será acionado caso o método seja get
+            file.put("AlunosDSM", new JSONArray(Aluno.alunoDSM())); // Exibe o array localizado na classe Aluno                  
+            
+        } else{ // Caso o método não corresponda a nenhuma das opções
+            response.sendError(405, "Método não permitido"); // Mostra um erro de Método inválido
+        
+        }
+        
+    }    
 
 }
